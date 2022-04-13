@@ -70,7 +70,7 @@ func (p *Pool) Get() interface{} {
 			p.created++
 			return p.create()
 		}
-
+		// 挂起当前协程,其他协程调用了 Signal 或 Broadcast 即唤醒该协程
 		p.cond.Wait()
 	}
 }
@@ -88,6 +88,7 @@ func (p *Pool) Put(x interface{}) {
 		next:     p.head,
 		lastUsed: timex.Now(),
 	}
+	// 唤醒等待的协程
 	p.cond.Signal()
 }
 

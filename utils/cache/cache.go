@@ -55,7 +55,7 @@ func NewCache(expire time.Duration, opts ...CacheOption) (*Cache, error) {
 		opt(cache)
 	}
 
-	if len(cache.name) == 0 {
+	if len([]rune(cache.name)) == 0 {
 		cache.name = defaultCacheName
 	}
 	cache.stats = newCacheStat(cache.name, cache.size)

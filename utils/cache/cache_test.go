@@ -166,7 +166,7 @@ func BenchmarkCache(b *testing.B) {
 	if err != nil {
 		b.Fatal(err)
 	}
-
+	start := time.Now()
 	for i := 0; i < 10000; i++ {
 		for j := 0; j < 10; j++ {
 			index := strconv.Itoa(i*10000 + j)
@@ -175,6 +175,7 @@ func BenchmarkCache(b *testing.B) {
 	}
 
 	time.Sleep(time.Second * 5)
+	b.ResetTimer()
 
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
@@ -187,4 +188,6 @@ func BenchmarkCache(b *testing.B) {
 			}
 		}
 	})
+	now := time.Since(start).String()
+	b.Log(now)
 }
