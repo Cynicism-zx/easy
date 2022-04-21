@@ -52,9 +52,10 @@ func NewCache(expire time.Duration, opts ...CacheOption) (*Cache, error) {
 	}
 
 	for _, opt := range opts {
+		// 传指针
 		opt(cache)
 	}
-
+	// 正确判断字符串长度
 	if len([]rune(cache.name)) == 0 {
 		cache.name = defaultCacheName
 	}

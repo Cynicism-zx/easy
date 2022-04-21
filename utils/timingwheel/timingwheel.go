@@ -22,12 +22,12 @@ type (
 
 	// A TimingWheel is a timing wheel object to schedule tasks.
 	TimingWheel struct {
-		interval      time.Duration
+		interval      time.Duration // 时间轮跨度(时间轮盘每前进一步，所需要的时间)
 		ticker        timex.Ticker
-		slots         []map[int]*list.List
+		slots         []map[int]*list.List // 数组实现时间轮盘
 		timers        *collection.SafeMap
 		tickedPos     int
-		numSlots      int
+		numSlots      int // 时间轮齿数(时间轮盘总的齿轮数)
 		execute       Execute
 		setChannel    chan timingEntry
 		moveChannel   chan baseEntry
